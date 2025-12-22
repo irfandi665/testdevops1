@@ -3,7 +3,20 @@ services:
     # ... (service nginx yang lama biarkan saja)
 
   ngrok:
-    # ... (service ngrok yang lama biarkan saja)
+    image: ngrok/ngrok:latest
+    container_name: production_tunnel
+    restart: unless-stopped
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+    command:
+      - "http"
+      - "--domain=https://parthenogenetically-proequality-rebbeca.ngrok-free.dev"
+      - "web:80"
+    networks:
+      - app_network
+    depends_on:
+      web:
+        condition: service_healthy
 
   # Tambahkan Service Baru: Uptime Kuma
   uptime-kuma:
