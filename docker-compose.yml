@@ -1,37 +1,24 @@
 services:
-  # Aplikasi Web (Nginx)
   web:
-    image: nginx:alpine
-    container_name: production_web
+    # ... (service nginx yang lama biarkan saja)
+
+  ngrok:
+    # ... (service ngrok yang lama biarkan saja)
+
+  # Tambahkan Service Baru: Uptime Kuma
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: monitoring
     restart: unless-stopped
     volumes:
-      - ./html:/usr/share/nginx/html
+      - uptime-kuma-data:/app/data
+    ports:
+      - "3001:3001" # Akses via IP Lokal Proxmox (Internal)
     networks:
       - app_network
-    # Healthcheck untuk memastikan nginx siap sebelum ngrok connect
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
 
-  # Ngrok Tunnel (Pintu ke Internet)
-  ngrok:
-    image: ngrok/ngrok:latest
-    container_name: production_tunnel
-    restart: unless-stopped
-    environment:
-      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
-    command:
-      - "http"
-      - "--domain=parthenogenetically-proequality-rebbeca.ngrok-free.dev" # GANTI DENGAN DOMAIN ANDA
-      - "web:80" # Mengarah ke service 'web' port 80
-      #2yRXYkYRabv6V5jn6idf8vuPkrt_Gk6LsFk4gpH7aPQt5tPE
-    networks:
-      - app_network
-    depends_on:
-      web:
-        condition: service_healthy
+volumes:
+  uptime-kuma-data:
 
 networks:
   app_network:
