@@ -1,7 +1,20 @@
 services:
+  # Service 1: Web Server (Nginx)
   web:
-    # ... (service nginx yang lama biarkan saja)
+    image: nginx:alpine
+    container_name: production_web
+    restart: unless-stopped
+    volumes:
+      - ./html:/usr/share/nginx/html
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
+  # Service 2: Tunnel (Ngrok)
   ngrok:
     image: ngrok/ngrok:latest
     container_name: production_tunnel
@@ -17,21 +30,6 @@ services:
     depends_on:
       web:
         condition: service_healthy
-
-  # Tambahkan Service Baru: Uptime Kuma
-  uptime-kuma:
-    image: louislam/uptime-kuma:1
-    container_name: monitoring
-    restart: unless-stopped
-    volumes:
-      - uptime-kuma-data:/app/data
-    ports:
-      - "3001:3001" # Akses via IP Lokal Proxmox (Internal)
-    networks:
-      - app_network
-
-volumes:
-  uptime-kuma-data:
 
 networks:
   app_network:
