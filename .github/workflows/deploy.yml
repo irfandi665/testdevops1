@@ -1,0 +1,26 @@
+name: Deploy to Proxmox LXC
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: self-hosted # Menggunakan Runner di dalam LXC Anda
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Create .env file
+        # Inject Ngrok Token dari GitHub Secret ke file .env di server
+        run: echo "NGROK_AUTHTOKEN=${{ secrets.NGROK_AUTHTOKEN }}" > .env
+
+      - name: Deploy with Docker Compose
+        # --pull always: memastikan image nginx/ngrok terbaru
+        # --remove-orphans: membersihkan container lama jika ganti nama
+        run: docker compose up -d --build --pull always --remove-orphans
+        
+      - name: Prune System
+        # Membersihkan image bekas (hemat disk LXC)
+        run: docker system prune -f
