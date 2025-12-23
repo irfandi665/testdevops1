@@ -9,12 +9,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro # Agar bisa baca status docker lain
     networks:
       - app_network
-    # Healthcheck untuk memastikan nginx siap sebelum ngrok connect
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
 
   # Ngrok Tunnel (Pintu ke Internet)
   ngrok:
