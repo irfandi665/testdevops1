@@ -32,6 +32,20 @@ services:
     depends_on:
       web:
         condition: service_healthy
+    
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: monitoring
+    restart: unless-stopped
+    volumes:
+      - uptime-kuma-data:/app/data
+    ports:
+      - "3001:3001" # Akses via IP Lokal Proxmox (Internal)
+    networks:
+      - app_network
+
+volumes:
+  uptime-kuma-data:
 
 networks:
   app_network:
