@@ -79,6 +79,7 @@ services:
       - PGID=1001
       - DB_CONNECTION=sqlite
       - SPEEDTEST_SCHEDULE=0 * * * * # Test tiap jam
+      - APP_KEY=base64:xfBRcM4kUbp3gH1deP979W1e6qpynvAOjTQSGVDrdYg=
     volumes:
       - ./speedtest-config:/config
     restart: unless-stopped
