@@ -1,5 +1,5 @@
 services:
-  # Service 1: Web Server (Nginx)
+  # Aplikasi Web (Nginx)
   web:
     image: nginx:alpine
     container_name: production_web
@@ -8,13 +8,14 @@ services:
       - ./html:/usr/share/nginx/html
     networks:
       - app_network
+    # Healthcheck untuk memastikan nginx siap sebelum ngrok connect
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:80"]
       interval: 10s
       timeout: 5s
       retries: 3
 
-  # Service 2: Tunnel (Ngrok)
+  # Ngrok Tunnel (Pintu ke Internet)
   ngrok:
     image: ngrok/ngrok:latest
     container_name: production_tunnel
@@ -23,8 +24,9 @@ services:
       - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
     command:
       - "http"
-      - "--domain=https://parthenogenetically-proequality-rebbeca.ngrok-free.dev"
-      - "web:80"
+      - "--domain=parthenogenetically-proequality-rebbeca.ngrok-free.dev" # GANTI DENGAN DOMAIN ANDA
+      - "web:80" # Mengarah ke service 'web' port 80
+      #2yRXYkYRabv6V5jn6idf8vuPkrt_Gk6LsFk4gpH7aPQt5tPE
     networks:
       - app_network
     depends_on:
