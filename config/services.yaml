@@ -18,3 +18,12 @@
           type: uptimekuma
           url: http://monitoring:3001 # Menggunakan nama container "monitoring"
           slug: default # Kita perlu config ini nanti di Uptime Kuma, biarkan dulu
+
+- Uptime Kuma:
+        icon: uptime-kuma.png
+        href: http://localhost:3001 
+        description: Monitoring Server
+        widget:
+          type: uptimekuma
+          url: http://monitoring:3001
+          slug: myweb  # <--- GANTI INI sesuai slug di Uptime Kuma
