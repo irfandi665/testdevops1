@@ -37,7 +37,7 @@
 
     - Docker Portainer:
         icon: portainer.png
-        href: http://web:9000 # Contoh jika ada portainer
+        href: http://10.62.9.53:9000 # Contoh jika ada portainer
         description: Container Manager
 
 - Monitoring:
@@ -47,5 +47,5 @@
         href: http://localhost:3001
         widget:
           type: uptimekuma
-          url: http://monitoring:3001
+          url: http://10.62.9.53:3001
           slug: myweb

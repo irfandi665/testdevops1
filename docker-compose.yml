@@ -52,8 +52,25 @@ services:
     networks:
       - app_network
 
+  # Tambahan: Portainer (Docker Manager)
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Wajib agar bisa baca status Docker
+      - portainer_data:/data # Agar password admin tidak hilang saat restart
+    ports:
+      - 9000:9000
+    networks:
+      - app_network
+
 volumes:
   uptime-kuma-data:
+  portainer_data:
 
 networks:
   app_network:
