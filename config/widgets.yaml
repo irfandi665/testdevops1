@@ -1,5 +1,24 @@
 ---
+# Menampilkan Logo & Salam
+- logo:
+    icon: https://raw.githubusercontent.com/gethomepage/homepage/main/public/android-chrome-512x512.png
+
+# Menampilkan Resource Server (CPU/RAM)
 - resources:
     cpu: true
     memory: true
     disk: /
+    celsius: true # Gunakan Celcius
+
+# Menampilkan Kolom Pencarian (Biar kayak Google)
+- search:
+    provider: google
+    target: _blank
+    focus: true # Kursor langsung aktif di sini saat buka web
+
+# Menampilkan Tanggal & Jam
+- datetime:
+    format:
+      dateStyle: long
+      timeStyle: short
+    text_size: xl

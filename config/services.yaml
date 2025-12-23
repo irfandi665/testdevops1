@@ -27,3 +27,25 @@
           type: uptimekuma
           url: http://monitoring:3001
           slug: myweb  # <--- GANTI INI sesuai slug di Uptime Kuma
+
+---
+- My Infrastructure:
+    - Proxmox:
+        icon: proxmox.png # Otomatis mengambil logo Proxmox
+        href: https://192.168.1.xxx:8006 # Ganti IP Proxmox Anda
+        description: Virtualization Server
+
+    - Docker Portainer:
+        icon: portainer.png
+        href: http://web:9000 # Contoh jika ada portainer
+        description: Container Manager
+
+- Monitoring:
+    - Uptime Kuma:
+        # Perhatikan: icon 'uptimekuma' (tanpa spasi/dash biasanya works, atau cek dokumentasi)
+        icon: uptime-kuma.png 
+        href: http://localhost:3001
+        widget:
+          type: uptimekuma
+          url: http://monitoring:3001
+          slug: my-website
