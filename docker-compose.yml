@@ -32,7 +32,7 @@ services:
       - "http"
       - "--domain=parthenogenetically-proequality-rebbeca.ngrok-free.dev"
       - "--host-header=localhost:3000"  # <--- GANTI 'rewrite' JADI INI
-    #  - "--basic-auth=admin:zinus" # <--- TAMBAHKAN BARIS INI
+      - "--basic-auth=admin:zinus" # <--- TAMBAHKAN BARIS INI
       - "web:3000"
     networks:
       - app_network
@@ -65,6 +65,23 @@ services:
       - portainer_data:/data # Agar password admin tidak hilang saat restart
     ports:
       - 9000:9000
+    networks:
+      - app_network
+
+  # Speedtest Tracker
+  speedtest:
+    image: lscr.io/linuxserver/speedtest-tracker:latest
+    container_name: speedtest
+    ports:
+      - 8080:80
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - DB_CONNECTION=sqlite
+      - SPEEDTEST_SCHEDULE=0 * * * * # Test tiap jam
+    volumes:
+      - ./speedtest-config:/config
+    restart: unless-stopped
     networks:
       - app_network
 

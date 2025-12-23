@@ -19,3 +19,12 @@
           type: uptimekuma
           url: http://10.62.9.53:3001
           slug: myweb
+
+- Network:
+    - Internet Speed:
+        icon: speedtest-tracker.png
+        href: http://10.62.9.53:8080
+        description: Monitoring Bandwidth
+        widget:
+          type: speedtest
+          url: http://speedtest:80 # Panggil nama service docker langsung
