@@ -5,8 +5,6 @@ services:
     container_name: homepage
     user: "1000:1000"
     restart: unless-stopped
-    group_add:
-      - keep-groups # Biar user tetap punya akses grup bawaan
     # Tambahkan environment ID agar file config tidak dikunci root
     environment:
       - PUID=1000 # ID user runner (cek dengan mengetik `id` di terminal runner, biasanya 1001 atau 1000)
