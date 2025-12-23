@@ -44,8 +44,8 @@
     - Uptime Kuma:
         # Perhatikan: icon 'uptimekuma' (tanpa spasi/dash biasanya works, atau cek dokumentasi)
         icon: uptime-kuma.png 
-        href: http://localhost:3001
+        href: http://10.62.9.53:3001
         widget:
           type: uptimekuma
-          url: http://10.62.9.53:3001
+          url: http://localhost:3001
           slug: myweb
