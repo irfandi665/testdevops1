@@ -1,11 +1,12 @@
 services:
   # Aplikasi Web (Nginx)
   web:
-    image: nginx:alpine
-    container_name: production_web
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
     restart: unless-stopped
     volumes:
-      - ./html:/usr/share/nginx/html
+      - ./config:/app/config # Mapping folder config dari repo ke container
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Agar bisa baca status docker lain
     networks:
       - app_network
     # Healthcheck untuk memastikan nginx siap sebelum ngrok connect
