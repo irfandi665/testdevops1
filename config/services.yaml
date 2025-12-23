@@ -1,38 +1,38 @@
----
-# Group pertama: Favorit
-- My First Group:
-    - Google:
-        icon: google.png
-        href: https://google.com
-        description: Search Engine
+# ---
+# # Group pertama: Favorit
+# - My First Group:
+#     - Google:
+#         icon: google.png
+#         href: https://google.com
+#         description: Search Engine
 
-# Group kedua: DevOps Monitoring
-- Infrastructure:
-    - Uptime Kuma:
-        icon: uptime-kuma.png
-        # Kita belum mengekspos port 3001 ke internet, jadi href ini mungkin belum bisa diklik dari luar
-        # Tapi widget di bawah ini AKAN jalan karena komunikasi antar container (internal network)
-        href: http://localhost:3001 
-        description: Monitoring Server
-        widget:
-          type: uptimekuma
-          url: http://monitoring:3001 # Menggunakan nama container "monitoring"
-          slug: default # Kita perlu config ini nanti di Uptime Kuma, biarkan dulu
+# # Group kedua: DevOps Monitoring
+# - Infrastructure:
+#     - Uptime Kuma:
+#         icon: uptime-kuma.png
+#         # Kita belum mengekspos port 3001 ke internet, jadi href ini mungkin belum bisa diklik dari luar
+#         # Tapi widget di bawah ini AKAN jalan karena komunikasi antar container (internal network)
+#         href: http://localhost:3001 
+#         description: Monitoring Server
+#         widget:
+#           type: uptimekuma
+#           url: http://monitoring:3001 # Menggunakan nama container "monitoring"
+#           slug: default # Kita perlu config ini nanti di Uptime Kuma, biarkan dulu
 
-- Uptime Kuma:
-        icon: uptime-kuma.png
-        href: http://localhost:3001 
-        description: Monitoring Server
-        widget:
-          type: uptimekuma
-          url: http://monitoring:3001
-          slug: myweb  # <--- GANTI INI sesuai slug di Uptime Kuma
+# - Uptime Kuma:
+#         icon: uptime-kuma.png
+#         href: http://localhost:3001 
+#         description: Monitoring Server
+#         widget:
+#           type: uptimekuma
+#           url: http://monitoring:3001
+#           slug: myweb  # <--- GANTI INI sesuai slug di Uptime Kuma
 
 ---
 - My Infrastructure:
     - Proxmox:
         icon: proxmox.png # Otomatis mengambil logo Proxmox
-        href: https://192.168.1.xxx:8006 # Ganti IP Proxmox Anda
+        href: https://10.62.8.242:8006 # Ganti IP Proxmox Anda
         description: Virtualization Server
 
     - Docker Portainer:
@@ -48,4 +48,4 @@
         widget:
           type: uptimekuma
           url: http://monitoring:3001
-          slug: my-website
+          slug: myweb
