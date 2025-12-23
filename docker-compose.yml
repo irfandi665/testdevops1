@@ -1,16 +1,26 @@
 services:
-  # Aplikasi Web (Nginx)
+  # Aplikasi Web (Homepage)
   web:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
     restart: unless-stopped
+    # Tambahkan environment ID agar file config tidak dikunci root
+    environment:
+      - PUID=1001 # ID user runner (cek dengan mengetik `id` di terminal runner, biasanya 1001 atau 1000)
+      - PGID=1001
     volumes:
-      - ./config:/app/config # Mapping folder config dari repo ke container
-      - /var/run/docker.sock:/var/run/docker.sock:ro # Agar bisa baca status docker lain
+      - ./config:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - app_network
+    # HEALTHCHECK WAJIB ADA karena ngrok depends_on service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  # Ngrok Tunnel (Pintu ke Internet)
+  # Ngrok Tunnel
   ngrok:
     image: ngrok/ngrok:latest
     container_name: production_tunnel
@@ -19,15 +29,15 @@ services:
       - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
     command:
       - "http"
-      - "--domain=parthenogenetically-proequality-rebbeca.ngrok-free.dev" # GANTI DENGAN DOMAIN ANDA
-      - "web:80" # Mengarah ke service 'web' port 80
-      #2yRXYkYRabv6V5jn6idf8vuPkrt_Gk6LsFk4gpH7aPQt5tPE
+      - "--domain=parthenogenetically-proequality-rebbeca.ngrok-free.dev"
+      - "web:3000" # PERBAIKAN: Homepage jalan di port 3000, bukan 80!
     networks:
       - app_network
     depends_on:
       web:
         condition: service_healthy
-    
+
+  # Monitoring (Opsional)
   uptime-kuma:
     image: louislam/uptime-kuma:1
     container_name: monitoring
@@ -35,7 +45,7 @@ services:
     volumes:
       - uptime-kuma-data:/app/data
     ports:
-      - "3001:3001" # Akses via IP Lokal Proxmox (Internal)
+      - "3001:3001"
     networks:
       - app_network
 
