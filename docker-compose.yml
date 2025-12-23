@@ -31,6 +31,7 @@ services:
       - "http"
       - "--domain=parthenogenetically-proequality-rebbeca.ngrok-free.dev"
       - "--host-header=localhost:3000"  # <--- GANTI 'rewrite' JADI INI
+      - "--basic-auth=admin:zinus" # <--- TAMBAHKAN BARIS INI
       - "web:3000"
     networks:
       - app_network
