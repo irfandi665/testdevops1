@@ -30,7 +30,7 @@ services:
     command:
       - "http"
       - "--domain=parthenogenetically-proequality-rebbeca.ngrok-free.dev"
-      - "--host-header=rewrite" # <--- INI KUNCI PERBAIKANNYA
+      - "--host-header=localhost:3000"  # <--- GANTI 'rewrite' JADI INI
       - "web:3000"
     networks:
       - app_network
