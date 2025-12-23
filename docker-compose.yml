@@ -3,11 +3,12 @@ services:
   web:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
+    user: "1000:1000"
     restart: unless-stopped
     # Tambahkan environment ID agar file config tidak dikunci root
     environment:
-      - PUID=1001 # ID user runner (cek dengan mengetik `id` di terminal runner, biasanya 1001 atau 1000)
-      - PGID=1001
+      - PUID=1000 # ID user runner (cek dengan mengetik `id` di terminal runner, biasanya 1001 atau 1000)
+      - PGID=1000
     volumes:
       - ./config:/app/config
       - /var/run/docker.sock:/var/run/docker.sock:ro
